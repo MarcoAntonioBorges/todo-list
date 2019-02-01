@@ -1,15 +1,65 @@
 <template>
   <div>
-    <v-toolbar color="indigo" dark>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-        <v-toolbar-title class="white--text">Title</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>Link One</v-btn>
-        <v-btn flat>Link Two</v-btn>
-        <v-btn flat>Link Three</v-btn>
-        <v-btn color="success">sadsad</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+    <v-navigation-drawer
+      stateless
+      dark
+      value = "true"
+      height="100vh"
+    >
+      <v-list>
+        <v-list-tile @click="redirecionar('home')">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Home</v-list-tile-title>
+        </v-list-tile>
+
+        <v-list-group
+          prepend-icon="account_circle"
+          value="true"
+        >
+          <v-list-tile slot="activator">
+            <v-list-tile-title>Tarefas</v-list-tile-title>
+          </v-list-tile>
+
+          <v-list-group
+            sub-group
+            no-action
+          >
+            <v-list-tile slot="activator">
+              <v-list-tile-title>Ações</v-list-tile-title>
+            </v-list-tile>
+
+            <v-list-tile
+              v-for="(crud, i) in cruds"
+              :key="i"
+              @click="redirecionar(crud[2])"
+            >
+              <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
+              <v-list-tile-action>
+                <v-icon v-text="crud[1]"></v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list-group>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    drawer: false,
+    cruds: [
+      ['Criar', 'add', 'create'],
+      ['Read Files', 'insert_drive_file', 'read']
+    ]
+  }),
+  methods: {
+    redirecionar (name) {
+      alert(name)
+    }
+  }
+}
+</script>
