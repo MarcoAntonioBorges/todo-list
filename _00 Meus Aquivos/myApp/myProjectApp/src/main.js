@@ -6,9 +6,12 @@ import router from './router'
 import Vuetify from 'vuetify'
 
 import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 // Using depedencias
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  iconfont: 'md'
+})
 
 Vue.config.productionTip = false
 

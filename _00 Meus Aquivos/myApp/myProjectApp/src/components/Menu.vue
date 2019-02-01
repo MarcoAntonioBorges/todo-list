@@ -1,10 +1,15 @@
 <template>
-  <div>
+  <div id="menu">
+    <v-btn fab dark color="grey darken-3" left flat absolute @click.stop="drawer = !drawer"
+      v-show="!drawer">
+      <v-icon dark>list</v-icon>
+    </v-btn>
+    
     <v-navigation-drawer
-      stateless
+      v-model="drawer"
+      temporary
       dark
-      value = "true"
-      height="100vh"
+      height=100vh
     >
       <v-list>
         <v-list-tile @click="redirecionar('home')">
@@ -50,7 +55,7 @@
 <script>
 export default {
   data: () => ({
-    drawer: false,
+    drawer: true,
     cruds: [
       ['Criar', 'add', 'create'],
       ['Read Files', 'insert_drive_file', 'read']
@@ -58,8 +63,29 @@ export default {
   }),
   methods: {
     redirecionar (name) {
-      alert(name)
+      if (name === 'read') {
+        this.$router.push('/lista')
+      } else if (name === 'home') {
+        this.$router.push('/')
+      } else if (name === 'create') {
+        this.$router.push('/criar')
+      }
+    }
+  },
+  watch: {
+    drawer: function (drawer) {
+      if (drawer === true) {
+        document.querySelector('#menu').style.zIndex = '1'
+      } else {
+        document.querySelector('#menu').style.zIndex = '0'
+      }
     }
   }
 }
 </script>
+
+<style>
+  #menu{
+    position: absolute;
+  }
+</style>
