@@ -4,7 +4,6 @@
       v-show="!drawer">
       <v-icon dark>list</v-icon>
     </v-btn>
-    
     <v-navigation-drawer
       v-model="drawer"
       temporary
@@ -34,7 +33,6 @@
             <v-list-tile slot="activator">
               <v-list-tile-title>Ações</v-list-tile-title>
             </v-list-tile>
-
             <v-list-tile
               v-for="(crud, i) in cruds"
               :key="i"
