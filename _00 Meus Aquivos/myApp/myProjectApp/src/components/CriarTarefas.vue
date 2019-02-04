@@ -1,6 +1,21 @@
 <template>
   <div>
     <v-container fluid>
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+        :top="y === 'top'"
+        :vertical="mode === 'vertical'"
+      >
+        {{ text }}
+        <v-btn
+          color="pink"
+          flat
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
 
       <v-layout row wrap align-start justify-center class="mb-5">
         <v-flex xs12 md6>
@@ -45,12 +60,12 @@
               <v-btn flat color="red" @click="limparCampos">Cancelar</v-btn>
               <v-spacer></v-spacer>
               <v-btn
-                :disabled="desabilitado"
+                :disabled="!desabilitarBotao"
                 color="blue"
                 type="submit"
                 @click="criarTarefa"
                 flat
-              >Register</v-btn>
+              >Criar</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -64,7 +79,7 @@
 export default {
   name: 'CriarTarefas',
   data: () => ({
-    desabilitado: true,
+    alerta: false,
     form: Object.assign({}),
     regras: {
       texto: [
@@ -78,14 +93,24 @@ export default {
       prioridade: ''
     }
   }),
+  computed: {
+    desabilitarBotao () {
+      return this.tarefa.nome && this.tarefa.descricao && this.tarefa.prioridade
+    }
+  },
   methods: {
     limparCampos () {
       this.form = Object.assign({})
       this.$refs.form.reset()
     },
     criarTarefa () {
-      alert('Tarefa Criada ' + 'Nome: ' + this.tarefa.nome + 'Descricao: ' + this.tarefa.descricao + 'Prioridade: ' + this.tarefa.prioridade)
+      console.log(this.tarefa)
       this.limparCampos()
+      this.notifica()
+    },
+    notifica () {
+      this.alerta = true
+      setTimeout(function () { this.alerta = false }, 1000)
     }
   }
 }
