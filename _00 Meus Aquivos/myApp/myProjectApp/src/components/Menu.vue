@@ -34,13 +34,13 @@
               <v-list-tile-title>Ações</v-list-tile-title>
             </v-list-tile>
             <v-list-tile
-              v-for="(crud, i) in cruds"
+              v-for="(opcao, i) in opcoes"
               :key="i"
-              @click="redirecionar(crud[2])"
+              @click="redirecionar(opcao[2])"
             >
-              <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
+              <v-list-tile-title v-text="opcao[0]"></v-list-tile-title>
               <v-list-tile-action>
-                <v-icon v-text="crud[1]"></v-icon>
+                <v-icon v-text="opcao[1]"></v-icon>
               </v-list-tile-action>
             </v-list-tile>
           </v-list-group>
@@ -54,18 +54,18 @@
 export default {
   data: () => ({
     drawer: true,
-    cruds: [
+    opcoes: [
       ['Criar', 'add', 'create'],
       ['Read Files', 'insert_drive_file', 'read']
     ]
   }),
   methods: {
-    redirecionar (name) {
-      if (name === 'read') {
+    redirecionar (nome) {
+      if (nome === 'read') {
         this.$router.push('/lista')
-      } else if (name === 'home') {
+      } else if (nome === 'home') {
         this.$router.push('/')
-      } else if (name === 'create') {
+      } else if (nome === 'create') {
         this.$router.push('/criar')
       }
     }
