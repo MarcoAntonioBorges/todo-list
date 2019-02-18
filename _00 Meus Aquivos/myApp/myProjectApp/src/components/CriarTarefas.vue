@@ -2,14 +2,15 @@
   <div>
     <v-container fluid>
       <v-snackbar
+        color="green"
         v-model="snackbar"
         :timeout="timeout"
-        :top="y === 'top'"
-        :vertical="mode === 'vertical'"
+        :top="true"
+        :vertical="false"
       >
-        {{ text }}
+        {{ textoSnackbar }}
         <v-btn
-          color="pink"
+          color="red accent-4"
           flat
           @click="snackbar = false"
         >
@@ -79,7 +80,9 @@
 export default {
   name: 'CriarTarefas',
   data: () => ({
-    alerta: false,
+    textoSnackbar: 'Tarefa Criada com Sucesso!',
+    snackbar: false,
+    timeout: 5000,
     form: Object.assign({}),
     regras: {
       texto: [
@@ -105,12 +108,9 @@ export default {
     },
     criarTarefa () {
       console.log(this.tarefa)
+      sessionStorage.setItem('ID-' + new Date(), this.tarefa)
       this.limparCampos()
-      this.notifica()
-    },
-    notifica () {
-      this.alerta = true
-      setTimeout(function () { this.alerta = false }, 1000)
+      this.snackbar = true
     }
   }
 }
